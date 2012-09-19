@@ -7,9 +7,12 @@ UserInputInstall()
 	apt-get -y install $1
 }
 
+echo -e "Entrez votre login : "
+read USER
+
 echo -e "Entrez le mot de passe du serveur MySQL : "
-#MYSQLPASSWORD="123";
 read MYSQLPASSWORD
+
 
 clear
 echo "=========> ADDING PPA REPOSITORIES"
@@ -25,8 +28,15 @@ apt-get update
 
 clear
 echo "=========> UTILITIES"
-apt-get -y install zsh
+apt-get -y install zsh #a good shell
 	chsh -s /bin/zsh
+wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh #install ohmyzsh
+su -l $USER -c ./install.sh
+./install.sh
+rm ./install.sh
+mv /root/.oh-my-zsh /root/.oh-my-zsh_ #Create a backup
+ln -s /home/$USER/.oh-my-zsh /root #sym link the user dir
+
 apt-get -y install synaptic
 apt-get -y install ubuntu-restricted-extras
 apt-get -y install vim
@@ -36,8 +46,8 @@ apt-get -y install p7zip-full
 apt-get -y install pdfmod
 apt-get -y install virtualbox-ose
 apt-get -y install virtualbox-fuse
-#UserInputInstall wine
-echo -e "\t\n\t\n" | apt-get -y install wine
+UserInputInstall wine
+#echo -e "\t\n\t\n" | apt-get -y install wine
 
 clear
 echo "=========> MEDIA & COM"
@@ -89,7 +99,8 @@ apt-get -y install eclipse #IDE
 clear
 echo "=========> Web DEV"
 apt-get -y install apache2 #http server
-echo -e "$MYSQL_PASSWORD\n$MYSQL_PASSWORD\n" | apt-get -y install mysql-server #DB
+#echo -e "$MYSQL_PASSWORD\n$MYSQL_PASSWORD\n" | apt-get -y install mysql-server #DB
+UserInputInstall mysql-server
 apt-get -y install mysql-workbench #GUI for managing MySQL DB
 apt-get -y install php5 #PHP Interpreter
 
@@ -100,7 +111,7 @@ clear
 echo "=========> GNOME SHELL"
 apt-get -y install gnome-shell
 apt-get -y install gnome-tweak-tool
-apt-get -y install gnome-shell-extensions-common #NOT INSTALLED
+apt-get -y install gnome-shell-extensions
 
 
 clear
