@@ -10,9 +10,6 @@ UserInputInstall()
 echo -e "Entrez votre login : "
 read USER
 
-echo -e "Entrez le mot de passe du serveur MySQL : "
-read MYSQLPASSWORD
-
 
 clear
 echo "=========> ADDING PPA REPOSITORIES"
@@ -29,14 +26,14 @@ apt-get update
 clear
 echo "=========> UTILITIES"
 apt-get -y install zsh #a good shell
-	chsh -s /bin/zsh
+	su -l $USER -c "chsh -s /bin/zsh"
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh #install ohmyzsh
-su -l $USER -c ./install.sh
-./install.sh
-rm ./install.sh
-mv /root/.oh-my-zsh /root/.oh-my-zsh_ #Create a backup
-ln -s /home/$USER/.oh-my-zsh /root #sym link the user dir
-
+chmod ugo+x ./install.sh
+	su -l $USER -c "./install.sh"
+	./install.sh
+	rm ./install.sh
+	mv /root/.oh-my-zsh /root/.oh-my-zsh_ #Create a backup
+	ln -s /home/$USER/.oh-my-zsh /root #sym link the user dir
 apt-get -y install synaptic
 apt-get -y install ubuntu-restricted-extras
 apt-get -y install vim
@@ -44,10 +41,13 @@ apt-get -y install grub-customizer
 apt-get -y install gparted
 apt-get -y install p7zip-full
 apt-get -y install pdfmod
-apt-get -y install virtualbox-ose
-apt-get -y install virtualbox-fuse
+wget http://download.virtualbox.org/virtualbox/4.2.0/virtualbox-4.2_4.2.0-80737~Ubuntu~precise_amd64.deb #VirtualBox
+	dpkg -i ./virtualbox-4.2_4.2.0-80737~Ubuntu~precise_amd64.deb
+	wget http://download.virtualbox.org/virtualbox/4.2.0/Oracle_VM_VirtualBox_Extension_Pack-4.2.0-80737.vbox-extpack
+	VBoxManage extpack install ./Oracle_VM_VirtualBox_Extension_Pack-4.2.0-80737.vbox-extpack
+	rm ./Ubuntu~precise_amd64.deb ; rm ./Oracle_VM_VirtualBox_Extension_Pack-4.2.0-80737.vbox-extpack
+	#apt-get -y install virtualbox-fuse
 UserInputInstall wine
-#echo -e "\t\n\t\n" | apt-get -y install wine
 
 clear
 echo "=========> MEDIA & COM"
@@ -59,6 +59,7 @@ apt-get -y install shutter #Screenshots
 apt-get -y quassel-qt4 #IRC client
 apt-get -y install acetoneiso #ISO mounter
 apt-get -y install cheese #Webcam manager
+apt-get -y install evolution #Calendar
 
 clear
 echo "=========> NETWORK"
@@ -74,7 +75,7 @@ apt-get -y install gcolor2 #Chose color code
 
 clear
 echo "=========> DEV UTILITIES"
-apt-get -y install git #DVCS
+apt-get -y install git7 #DVCS
 apt-get -y install gitg #Git gui
 apt-get -y install subversion #SVN (required by codeblocks svn install)
 apt-get -y install doxygen doxygen-gui graphviz #Documentation generator
@@ -99,10 +100,14 @@ apt-get -y install eclipse #IDE
 clear
 echo "=========> Web DEV"
 apt-get -y install apache2 #http server
-#echo -e "$MYSQL_PASSWORD\n$MYSQL_PASSWORD\n" | apt-get -y install mysql-server #DB
 UserInputInstall mysql-server
 apt-get -y install mysql-workbench #GUI for managing MySQL DB
 apt-get -y install php5 #PHP Interpreter
+
+wget http://download.netbeans.org/netbeans/7.2/final/bundles/netbeans-7.2-ml-php-linux.sh #Netbeans IDE
+	chmod ugo+x ./netbeans-7.2-ml-php-linux.sh
+	echo -e "\a";sleep 0.3;echo -e "\a";sleep 0.3;echo -e "\a"
+	./netbeans-7.2-ml-php-linux.sh
 
 apt-get -y install chromium-browser #web browser using WebCore
 apt-get -y install konqueror #web browser using Webkit

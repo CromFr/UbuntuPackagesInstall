@@ -44,7 +44,7 @@ cd trunk
 
 clear
 echo "Install needed packages"
-apt-get -y install libtdl-dev
+apt-get -y install libltdl-dev
 apt-get -y install autoconf
 apt-get -y install libhunspell-dev
 apt-get -y install libgamin-dev
