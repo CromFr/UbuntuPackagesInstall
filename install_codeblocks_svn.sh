@@ -53,7 +53,7 @@ clear
 echo "Configure codeblocks src"
 ./bootstrap
 clear
-./configure --with-contrib-plugins=AutoVersioning,BrowseTracker,byogames,Cccc,CppCheck,cbkoders,codesnippets,codestat,copystrings,Cscope,DoxyBlocks,dragscroll,EditorConfig,EditorTweaks,envvars,FileManager,headerfixup,help,hexeditor,incsearch,keybinder,libfinder,MouseSap,profiler,regex,ReopenEditor,exporter,spellchecker,symtab,ThreadSearch,ToolsPlus,Valgrind,wxcontrib,wxsmith,wxsmithcontrib,wxsmithaui
+./configure --with-contrib-plugins=all,-NassiShneiderman
 
 clear
 echo "Making Codeblocks" 

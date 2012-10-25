@@ -7,6 +7,16 @@ UserInputInstall()
 	apt-get -y install $1
 }
 
+clear
+echo "=========> CHECKING PREREQUIREMENTS"
+#telnet github.com 443&
+#echo
+#if [[ $? == 0 ]]
+echo "WARNING: You must have port 3690 (SVN) opened (not blocked by a firewall)"
+read
+
+clear
+echo "=========> CONFIGURATION"
 echo -e "Entrez votre login : "
 read USER
 
@@ -18,36 +28,33 @@ add-apt-repository -y ppa:ricotz/testing #Gnome extensions
 add-apt-repository -y ppa:upubuntu-com/chat #Skype
 add-apt-repository -y ppa:danielrichter2007/grub-customizer #grub cust
 add-apt-repository -y ppa:otto-kesselgulasch/gimp #gimp
-
+gadd-apt-repository -y ppa:cooperjona/lightread #Lightread
 clear
 echo "=========> UPDATING PACKAGE LIST"
 apt-get update
 
 clear
 echo "=========> UTILITIES"
+apt-get -y install git #DVCS
+
 apt-get -y install zsh #a good shell
 	su -l $USER -c "chsh -s /bin/zsh"
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh #install ohmyzsh
 chmod ugo+x ./install.sh
 	su -l $USER -c "./install.sh"
+	exit
 	./install.sh
+	exit
 	rm ./install.sh
-	mv /root/.oh-my-zsh /root/.oh-my-zsh_ #Create a backup
+	rm -R /root/.oh-my-zsh #delete current root ohmyzsh dir
 	ln -s /home/$USER/.oh-my-zsh /root #sym link the user dir
 apt-get -y install synaptic
-apt-get -y install ubuntu-restricted-extras
+UserInputInstall ubuntu-restricted-extras
 apt-get -y install vim
 apt-get -y install grub-customizer
 apt-get -y install gparted
 apt-get -y install p7zip-full
-apt-get -y install pdfmod
-wget http://download.virtualbox.org/virtualbox/4.2.0/virtualbox-4.2_4.2.0-80737~Ubuntu~precise_amd64.deb #VirtualBox
-	dpkg -i ./virtualbox-4.2_4.2.0-80737~Ubuntu~precise_amd64.deb
-	wget http://download.virtualbox.org/virtualbox/4.2.0/Oracle_VM_VirtualBox_Extension_Pack-4.2.0-80737.vbox-extpack
-	VBoxManage extpack install ./Oracle_VM_VirtualBox_Extension_Pack-4.2.0-80737.vbox-extpack
-	rm ./Ubuntu~precise_amd64.deb ; rm ./Oracle_VM_VirtualBox_Extension_Pack-4.2.0-80737.vbox-extpack
-	#apt-get -y install virtualbox-fuse
-UserInputInstall wine
+apt-get -y install wine
 
 clear
 echo "=========> MEDIA & COM"
@@ -56,7 +63,7 @@ apt-get -y install skype
 apt-get -y install lightread #RSS Reader
 apt-get -y install audacity #Audio record
 apt-get -y install shutter #Screenshots
-apt-get -y quassel-qt4 #IRC client
+apt-get -y install quassel-qt4 #IRC client
 apt-get -y install acetoneiso #ISO mounter
 apt-get -y install cheese #Webcam manager
 apt-get -y install evolution #Calendar
@@ -75,7 +82,6 @@ apt-get -y install gcolor2 #Chose color code
 
 clear
 echo "=========> DEV UTILITIES"
-apt-get -y install git7 #DVCS
 apt-get -y install gitg #Git gui
 apt-get -y install subversion #SVN (required by codeblocks svn install)
 apt-get -y install doxygen doxygen-gui graphviz #Documentation generator
