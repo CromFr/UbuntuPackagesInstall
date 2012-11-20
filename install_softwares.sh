@@ -28,7 +28,7 @@ add-apt-repository -y ppa:ricotz/testing #Gnome extensions
 add-apt-repository -y ppa:upubuntu-com/chat #Skype
 add-apt-repository -y ppa:danielrichter2007/grub-customizer #grub cust
 add-apt-repository -y ppa:otto-kesselgulasch/gimp #gimp
-gadd-apt-repository -y ppa:cooperjona/lightread #Lightread
+add-apt-repository -y ppa:cooperjona/lightread #Lightread
 clear
 echo "=========> UPDATING PACKAGE LIST"
 apt-get update
